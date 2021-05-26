@@ -4,3 +4,4 @@ matplotlib==3.3.1
 pandas==1.1.2
 streamlit_folium==0.4.0
 streamlit==0.82.0
+xlrd==1.2.0
