@@ -43,7 +43,7 @@ def draw_map(df):
 
 @st.cache(show_spinner=True)
 def load_data(path):
-    df = pd.read_excel(path, sheet_name='data')
+    df = pd.read_excel(path)
     df.columns = df.columns.str.strip()
     return df
 
