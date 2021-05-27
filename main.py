@@ -116,7 +116,7 @@ piecol2.write(df.groupby('disch_country').sum()[['voy_intake, tones']].reset_ind
 with st.spinner('Draw map...'):
     folium_static(draw_map(df))
 
-x = st.selectbox('Y coordinate', ['commodity_name','load_port','disch_port'])
+x = st.selectbox('Y coordinate', ['load_country','disch_country','commodity_name','load_port','disch_port'])
 with st.spinner('Plot your chart...'):
     fig, ax = plt.subplots(figsize=(20,8))
     sns.set_theme(style="whitegrid")
@@ -128,7 +128,7 @@ with st.spinner('Plot your chart...'):
     fig.autofmt_xdate()
     st.write(fig)
 
-x_sec = st.selectbox('X coordinate', ['commodity_name','load_port','disch_port'])
+x_sec = st.selectbox('X coordinate', ['load_country','disch_country','commodity_name','load_port','disch_port'])
 with st.spinner('Plot your chart...'):
     fig, ax = plt.subplots(figsize=(20,8))
     sns.lineplot(y = 'voy_intake, tones',
