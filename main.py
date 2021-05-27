@@ -56,7 +56,7 @@ def filter_df(filters_dict, df):
 
 st.set_page_config(layout='wide')
 
-path = r'geo_data.xlsx'
+path = r'geo_data_upd.xlsx'
 with st.spinner('Loading data...'):
     df = load_data(path)
 
