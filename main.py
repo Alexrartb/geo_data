@@ -32,7 +32,7 @@ def draw_arrow(world_map, df):
     return world_map
 
 def draw_map(df):
-    world_map = folium.Map(location=[df['lat_from'].mean(), df['lon_from'].mean()], zoom_start=1, width=1000,height=500)
+    world_map = folium.Map(location=[48.6206, 44.0492], zoom_start=1, width=1000,height=500)
     #     нарисовать точки откуда
     world_map = set_points(df['lat_from'], df['lon_from'], df['load_port'], world_map)
     #     нарисовать точки куда
