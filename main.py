@@ -43,14 +43,12 @@ def draw_map(df):
 
 @st.cache(show_spinner=True)
 def load_data(path):
-    df = pd.read_excel(path, sheet_name='data')
+    df = pd.read_excel(path, sheet_name='data', nrows=100)
     df.columns = df.columns.str.strip()
-    # df['year'] = df['year'].astype('int')
     return df
 
 @st.cache
 def filter_df(filters_dict, df):
-    # df = df.loc[(df['year'] <= year_to) & (df['year'] >= year_from)]
     for col in filters_dict.keys():
         if filters_dict[col]:
             df = df.loc[df[col].isin(filters_dict[col])]
@@ -63,13 +61,12 @@ with st.spinner('Loading data...'):
     df = load_data(path)
 
 
-# year_from = st.sidebar.slider('Choose period from (<=)', min_value = df['year'].min(), max_value=df['year'].max(), step=1)
-# year_to = st.sidebar.slider('Choose period to (>=)', min_value = df['year'].min() + 1, max_value=df['year'].max(), step=1)
-
 filters_dict = {
+    'load_country':st.sidebar.multiselect('Choose load country',df['load_country'].unique()),
+    'disch_country':st.sidebar.multiselect('Choose disch country ',df['disch_country'].unique()),
+    'commodity_name':st.sidebar.multiselect('Choose commodity name',df['commodity_name'].unique()),
     'load_port':st.sidebar.multiselect('Choose load port',df['load_port'].unique()),
-    'disch_port':st.sidebar.multiselect('Choose disch port',df['disch_port'].unique()),
-    'commodity_name':st.sidebar.multiselect('Choose commodity name',df['commodity_name'].unique())
+    'disch_port':st.sidebar.multiselect('Choose disch port',df['disch_port'].unique())
 }
 st.write('### Raw data')
 df = filter_df(filters_dict, df)
@@ -112,9 +109,9 @@ col21, col22 = st.beta_columns((1,1))
 plot_pie_charts(col21,'load_country',df)
 plot_pie_charts(col22,'disch_country',df)
 
-piecol1, piecol2 = st.betacolumns((1,1))
+piecol1, piecol2 = st.beta_columns((1,1))
 piecol1.write(df.groupby('load_country').sum()[['voy_intake, tones']].reset_index())
-piecol1.write(df.groupby('disch_country').sum()[['voy_intake, tones']].reset_index())
+piecol2.write(df.groupby('disch_country').sum()[['voy_intake, tones']].reset_index())
 
 with st.spinner('Draw map...'):
     folium_static(draw_map(df))
