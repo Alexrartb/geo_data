@@ -108,7 +108,14 @@ col11.write(df.groupby('commodity_name').sum()[['voy_intake, tones']].reset_inde
 col12.write(df.groupby('load_port').sum()[['voy_intake, tones']].reset_index())
 col13.write(df.groupby('disch_port').sum()[['voy_intake, tones']].reset_index())
 
-# col21, col22, col23 = st.beta_columns((2,1,1))
+col21, col22 = st.beta_columns((1,1))
+plot_pie_charts(col21,'load_country',df)
+plot_pie_charts(col22,'disch_country',df)
+
+piecol1, piecol2 = st.betacolumns((1,1))
+piecol1.write(df.groupby('load_country').sum()[['voy_intake, tones']].reset_index())
+piecol1.write(df.groupby('disch_country').sum()[['voy_intake, tones']].reset_index())
+
 with st.spinner('Draw map...'):
     folium_static(draw_map(df))
 
